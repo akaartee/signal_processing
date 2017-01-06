@@ -80,7 +80,10 @@ function chooseFile_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 [FileName,PathName,FilterIndex] = uigetfile('*.txt','Choose a file...');
-data = dlmread([PathName, FileName],' ');
+data = dlmread([PathName, FileName],',');
+if size(data, 2) == 1
+    data = dlmread([PathName, FileName],' ');
+end
 
 handles.time = data(1:end,1);
 handles.ecg = data(:,2);
